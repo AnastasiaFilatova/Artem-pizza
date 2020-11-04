@@ -1,8 +1,14 @@
-# Getting Started with Create React App
+# ArtemPizza - pizza online store
+An online store that allows customers create their own pizzas and order it. App made in ReactJs, bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project dependencies
+* node js
+* yarn
+* git
 
-## Available Scripts
+## How to run a project on your local machine
+### git clone https://github.com/AnastasiaFilatova/Artem-pizza.git
+### cd artem-pizza
 
 In the project directory, you can run:
 
