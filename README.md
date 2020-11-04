@@ -7,8 +7,8 @@ An online store that allows customers create their own pizzas and order it. App 
 * git
 
 ## How to run a project on your local machine
-### git clone https://github.com/AnastasiaFilatova/Artem-pizza.git
-### cd artem-pizza
+    git clone https://github.com/AnastasiaFilatova/Artem-pizza.git
+    cd artem-pizza
 
 In the project directory, you can run:
 
