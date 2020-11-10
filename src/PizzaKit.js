@@ -93,7 +93,7 @@ class PizzaKit extends React.Component {
                 Сыр
                 {
                   this.state.cheeses.map((cheese) => {
-                    return (<CheckBox onCheckBoxChange={this.onCheckBoxChange} name="cheeses" {...cheese} />)
+                    return (<CheckBox handleItemChange={this.handleItemChange} name="cheeses" {...cheese} />)
                   })
                 }
               </label>
@@ -103,7 +103,7 @@ class PizzaKit extends React.Component {
                 Овощи
                 {
                   this.state.vegetables.map((vegetable) => {
-                    return (<CheckBox onCheckBoxChange={this.onCheckBoxChange} name="vegetables" {...vegetable} />)
+                    return (<CheckBox handleItemChange={this.handleItemChange} name="vegetables" {...vegetable} />)
                   })
                 }
               </label>
