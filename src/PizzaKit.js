@@ -24,7 +24,19 @@ class PizzaKit extends React.Component {
       vegetables: [
         { id: 0, value: "Помидор", isChecked: false },
         { id: 1, value: "Грибы", isChecked: false },
-        { id: 2, value: "Перец", isChecked: false }]
+        { id: 2, value: "Перец", isChecked: false },
+        { id: 3, value: "Ананасы", isChecked: false },
+        { id: 4, value: "Оливки", isChecked: false },
+        { id: 5, value: "Лук", isChecked: false },
+        { id: 6, value: "Брокколи", isChecked: false }
+      ],
+      meats: [
+        { id: 0, value: "Бекон", isChecked: false },
+        { id: 1, value: "Пепперони", isChecked: false },
+        { id: 2, value: "Ветчина", isChecked: false },
+        { id: 3, value: "Курица", isChecked: false },
+        { id: 4, value: "Салями", isChecked: false }
+      ]
     };
 
     this.handleItemChange = this.handleItemChange.bind(this);
@@ -81,7 +93,7 @@ class PizzaKit extends React.Component {
           </div>
           <div className="radio">
             <label>
-              Соус
+              Выберите соус
               {
                   this.state.sauses.map((sause) => {
                     return (<RadioInput handleItemChange={this.handleItemChange} name="sauses" {...sause} />)
@@ -90,7 +102,7 @@ class PizzaKit extends React.Component {
               </label>
             <div className="checkbox">
               <label>
-                Сыр
+                Добавьте сыр
                 {
                   this.state.cheeses.map((cheese) => {
                     return (<CheckBox handleItemChange={this.handleItemChange} name="cheeses" {...cheese} />)
@@ -100,10 +112,20 @@ class PizzaKit extends React.Component {
             </div>
             <div className="checkbox">
               <label>
-                Овощи
+              Добавьте овощи
                 {
                   this.state.vegetables.map((vegetable) => {
                     return (<CheckBox handleItemChange={this.handleItemChange} name="vegetables" {...vegetable} />)
+                  })
+                }
+              </label>
+            </div>
+            <div className="checkbox">
+              <label>
+              Добавьте мясо
+                {
+                  this.state.meats.map((meat) => {
+                    return (<CheckBox handleItemChange={this.handleItemChange} name="meats" {...meat} />)
                   })
                 }
               </label>
