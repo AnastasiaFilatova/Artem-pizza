@@ -2,7 +2,7 @@ import React from 'react';
 
 export const CheckBox = props => {
     return (<>
-       <input key={props.id} onChange={props.onCheesesChange} type="checkbox" checked={props.isChecked} value={props.value} />{props.value}
+       <input key={props.id} onClick={props.onCheckBoxChange} type="checkbox" checked={props.isChecked} value={props.value} name={props.name} />{props.value}
     </>
     )
 }
