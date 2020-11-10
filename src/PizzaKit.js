@@ -1,13 +1,21 @@
 import React from 'react';
+import RadioInput from './RadioInput';
 import CheckBox from './CheckBox';
 
 class PizzaKit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      size: "30cm",
-      base: "Тонкое",
-      sause: "Томатный",
+      sizes: [
+        { id: 0, value: "30cm", isChecked: true },
+        { id: 1, value: "35cm", isChecked: false }],
+      bases:  [
+        { id: 0, value:  "Тонкое", isChecked: true },
+        { id: 1, value: "Пышное", isChecked: false }],
+      sauses: [
+        { id: 0, value:  "Томатный", isChecked: true },
+        { id: 1, value: "Белый", isChecked: false },
+        { id: 2, value: "Острый", isChecked: false }],
       cheeses: [
         { id: 0, value: "Моцарелла", isChecked: false },
         { id: 1, value: "Чеддер", isChecked: false },
@@ -18,44 +26,27 @@ class PizzaKit extends React.Component {
         { id: 1, value: "Грибы", isChecked: false },
         { id: 2, value: "Перец", isChecked: false }]
     };
-    this.onSizeChange = this.onSizeChange.bind(this);
-    this.onBaseChange = this.onBaseChange.bind(this);
-    this.onCheckBoxChange = this.onCheckBoxChange.bind(this);
+
+    this.handleItemChange = this.handleItemChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSizeChange = (event) => {
-    //alert(event.target.value);
-    this.setState({
-      size: event.target.value
-    });
-  };
-
-  onBaseChange = (event) => {
-    //alert(event.target.value);
-    this.setState({
-      base: event.target.value
-    });
-  };
-
-  onSauseChange = (event) => {
-    //alert(event.target.value);
-    this.setState({
-      sause: event.target.value
-    });
-  };
-
-  onCheckBoxChange = (event) => {
+  handleItemChange = (event) => {
     let checked_item_name = event.target.name;
     let items_state = this.state[checked_item_name];
 
     items_state.forEach(item => {
-      if (item.value === event.target.value)
-        item.isChecked = event.target.checked
-    })
-
-    this.setState({
-      [checked_item_name]: items_state
+      if (item.value === event.target.value) {
+        item.isChecked = event.target.checked;
+      }
+      else {
+        if (event.target.type === "radio") {
+          item.isChecked = false;
+        }
+      }
+      this.setState({
+        [checked_item_name]: items_state
+      })
     })
   }
 
@@ -71,65 +62,31 @@ class PizzaKit extends React.Component {
           <div className="radio">
             <label>
               Размер
-                <input
-                type="radio"
-                value="30cm"
-                checked={this.state.size === "30cm"}
-                onChange={this.onSizeChange}
-              />
-                30cm
-                <input
-                type="radio"
-                value="35cm"
-                checked={this.state.size === "35cm"}
-                onChange={this.onSizeChange}
-              />
-                35cm
+              {
+                  this.state.sizes.map((size) => {
+                    return (<RadioInput handleItemChange={this.handleItemChange} name="sizes" {...size} />)
+                  })
+                }
               </label>
           </div>
           <div className="radio">
             <label>
               Тесто
-                <input
-                type="radio"
-                value="Тонкое"
-                checked={this.state.base === "Тонкое"}
-                onChange={this.onBaseChange}
-              />
-                Тонкое
-                <input
-                type="radio"
-                value="Пышное"
-                checked={this.state.base === "Пышное"}
-                onChange={this.onBaseChange}
-              />
-                Пышное
+              {
+                  this.state.bases.map((base) => {
+                    return (<RadioInput handleItemChange={this.handleItemChange} name="bases" {...base} />)
+                  })
+                }
               </label>
           </div>
           <div className="radio">
             <label>
               Соус
-                <input
-                type="radio"
-                value="Томатный"
-                checked={this.state.sause === "Томатный"}
-                onChange={this.onSauseChange}
-              />
-                Томатный
-                <input
-                type="radio"
-                value="Белый"
-                checked={this.state.sause === "Белый"}
-                onChange={this.onSauseChange}
-              />
-                Белый
-                <input
-                type="radio"
-                value="Острый"
-                checked={this.state.sause === "Острый"}
-                onChange={this.onSauseChange}
-              />
-                Острый
+              {
+                  this.state.sauses.map((sause) => {
+                    return (<RadioInput handleItemChange={this.handleItemChange} name="sauses" {...sause} />)
+                  })
+                }
               </label>
             <div className="checkbox">
               <label>
