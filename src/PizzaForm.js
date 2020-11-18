@@ -1,13 +1,19 @@
 import { useState } from "react";
 import { calculatePrice } from "./calculatePrice";
+import { useArray } from "./useArray";
 
 export const PizzaForm = ({ onPizzaCreated }) => {
   const [size, setSize] = useState("30cm");
   const [base, setBase] = useState("thin");
-  const [sauces, setSauces] = useState([]);
-  const [cheeses, setCheeses] = useState([]);
-  const [vegetables, setVegetables] = useState([]);
-  const [meats, setMeats] = useState([]);
+  const [sauces, addSauce, removeSauce] = useArray([]);
+  const [cheeses, addCheese, removeCheese] = useArray([]);
+  const [vegetables, addVegetable, removeVegetable] = useArray([]);
+  const [meats, addMeat, removeMeat] = useArray([]);
+
+//   const [sauces, setSauces] = useState([]);
+//   const [cheeses, setCheeses] = useState([]);
+//   const [vegetables, setVegetables] = useState([]);
+//   const [meats, setMeats] = useState([]);
   const price = calculatePrice({
     size,
     base,
@@ -36,9 +42,9 @@ export const PizzaForm = ({ onPizzaCreated }) => {
     const { value, checked } = event.target;
 
     if (checked) {
-      setSauces((sauces) => [...sauces, value]);
+      addSauce(value);
     } else {
-      setSauces((sauces) => sauces.filter((s) => s !== value));
+      removeSauce(value);
     }
   };
 
@@ -46,9 +52,9 @@ export const PizzaForm = ({ onPizzaCreated }) => {
     const { value, checked } = event.target;
 
     if (checked) {
-      setCheeses((cheeses) => [...cheeses, value]);
+        addCheese(value);
     } else {
-      setCheeses((cheeses) => cheeses.filter((c) => c !== value));
+        removeCheese(value);
     }
   };
 
@@ -56,9 +62,9 @@ export const PizzaForm = ({ onPizzaCreated }) => {
     const { value, checked } = event.target;
 
     if (checked) {
-      setVegetables((vegetables) => [...vegetables, value]);
+      addVegetable(value);
     } else {
-      setVegetables((vegetables) => vegetables.filter((v) => v !== value));
+      removeVegetable(value);
     }
   };
 
@@ -66,9 +72,9 @@ export const PizzaForm = ({ onPizzaCreated }) => {
     const { value, checked } = event.target;
 
     if (checked) {
-      setMeats((meats) => [...meats, value]);
+      addMeat(value);
     } else {
-      setMeats((meats) => meats.filter((m) => m !== value));
+      removeMeat(value);
     }
   };
 
