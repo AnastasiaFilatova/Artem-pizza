@@ -1,6 +1,6 @@
 export const SIZE = {
-    '30cm': {name: '30cm', price: 200},
-    '35cm': {name: '35cm', price: 250}
+    '30cm': {name: '30см', price: 200},
+    '35cm': {name: '35см', price: 250}
 }
 
 export const BASE = {

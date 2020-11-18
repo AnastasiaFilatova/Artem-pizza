@@ -9,11 +9,7 @@ export const PizzaForm = ({ onPizzaCreated }) => {
   const [cheeses, addCheese, removeCheese] = useArray([]);
   const [vegetables, addVegetable, removeVegetable] = useArray([]);
   const [meats, addMeat, removeMeat] = useArray([]);
-
-//   const [sauces, setSauces] = useState([]);
-//   const [cheeses, setCheeses] = useState([]);
-//   const [vegetables, setVegetables] = useState([]);
-//   const [meats, setMeats] = useState([]);
+  
   const price = calculatePrice({
     size,
     base,
@@ -104,7 +100,7 @@ export const PizzaForm = ({ onPizzaCreated }) => {
               onChange={updateSize}
               checked={size === "30cm"}
             />
-            30cm
+            30см
           </label>
           <label>
             <input
@@ -114,7 +110,7 @@ export const PizzaForm = ({ onPizzaCreated }) => {
               onChange={updateSize}
               checked={size === "35cm"}
             />
-            35cm
+            35см
           </label>
         </fieldset>
         <fieldset>
