@@ -6,6 +6,11 @@ An online store that allows customers create their own pizzas and order it. App 
 * yarn
 * git
 
+## Installing testing libraries:
+    yarn add @testing-library/react-hooks
+    yarn add react-test-renderer 
+
+
 ## How to run a project on your local machine
     git clone https://github.com/AnastasiaFilatova/Artem-pizza.git
     cd artem-pizza
