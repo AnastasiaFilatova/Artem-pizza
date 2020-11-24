@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { calculatePrice } from "./calculatePrice";
-import { useArray } from "./useArray";
+import { calculatePrice } from "./utils/calculatePrice"
+import { useArray } from "./utils/useArray";
 
 export const PizzaForm = ({ onPizzaCreated }) => {
   const [size, setSize] = useState("30cm");

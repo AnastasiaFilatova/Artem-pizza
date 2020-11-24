@@ -1,5 +1,5 @@
-import { SIZE, BASE, SAUCES, CHEESES, MEATS, VEGETABLES } from "./pizzaData";
-import { calculatePrice } from "./calculatePrice";
+import { SIZE, BASE, SAUCES, CHEESES, MEATS, VEGETABLES } from "./utils/pizzaData";
+import { calculatePrice } from "./utils/calculatePrice";
 
 
 export const PizzaPreview = (pizza) => {
