@@ -205,8 +205,7 @@ export const PizzaForm = ({ onPizzaCreated }) => {
         <fieldset>
           <legend>Добавьте овощи</legend>
           <label>
-            <i
-              nput
+            <input
               type="checkbox"
               value="tomato"
               name="vegetable"
