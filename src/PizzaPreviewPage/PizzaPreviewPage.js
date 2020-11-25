@@ -2,8 +2,8 @@ import { Redirect, Link } from "react-router-dom";
 import { usePizza } from "../PizzaContext";
 import { PizzaPreview } from "../PizzaPreview";
 
-export const PizzaPreviewPage = () => {
-  const { pizza } = usePizza();
+export const PizzaPreviewPage = ({_usePizzaHook=usePizza}) => {
+  const { pizza } = _usePizzaHook();
 
   if (!pizza) {
     return <Redirect to="/" />;

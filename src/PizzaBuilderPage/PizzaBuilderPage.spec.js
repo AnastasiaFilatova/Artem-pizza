@@ -1,4 +1,4 @@
-const { render, fireEvent } = require("@testing-library/react");
+const { render, fireEvent } = require("@testing-library/react")
 const { MemoryRouter, Router } = require("react-router-dom")
 const { PizzaBuilderPage } = require("./PizzaBuilderPage")
 const { setPizza } = require("./PizzaBuilderPage")
