@@ -1,7 +1,8 @@
 const { render, fireEvent } = require("@testing-library/react");
-const { MemoryRouter } = require("react-router-dom")
+const { MemoryRouter, Router } = require("react-router-dom")
 const { PizzaBuilderPage } = require("./PizzaBuilderPage")
 const { setPizza } = require("./PizzaBuilderPage")
+import { createMemoryHistory } from "history" 
 
 jest.mock("../PizzaForm", () => {
   return {
@@ -67,6 +68,19 @@ describe("PizzaPageBuilder", () => {
         });
 
 
-        it.todo("navigates to the pizza preview when pizza exists")
+        it("navigates to the pizza preview when pizza exists", () => {
+          const history = createMemoryHistory();
+          const { getByText } = render(
+            <Router history={history}>
+              <PizzaBuilderPage
+                _usePizzaHook={() => ({
+                  setPizza: () => {},
+                })}
+              />
+            </Router>
+          );
+          fireEvent.click(getByText("Заказать за 200 руб."))
+          expect(history.location.pathname).toEqual("pizza-preview")
+        });
     })
 })
