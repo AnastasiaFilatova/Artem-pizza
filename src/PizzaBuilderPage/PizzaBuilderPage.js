@@ -2,8 +2,8 @@ import { useHistory } from "react-router-dom";
 import { usePizza } from "../PizzaContext";
 import { PizzaForm } from "../PizzaForm";
 
-export const PizzaBuilderPage = () => {
-    const {setPizza} = usePizza();
+export const PizzaBuilderPage = ({_usePizzaHook=usePizza}) => {
+    const {setPizza} =  _usePizzaHook();
     const history = useHistory();
     
     const onPizzaChange = (pizza) => {
