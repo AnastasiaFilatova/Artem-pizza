@@ -4,11 +4,10 @@ import { PizzaPreviewPage } from "./PizzaPreviewPage";
 import { CheckoutPage } from "./CheckoutPage";
 import { LoginPage } from "./LoginPage";
 import { RegistrationPage } from "./RegistrationPage";
-import { HistoryPage } from "./HistoryPage"; 
+import { HistoryPage } from "./HistoryPage";
 import { NotFoundPage } from "./NotFoundPage";
 
 function App() {
-
   return (
     <>
       <nav>
@@ -17,11 +16,8 @@ function App() {
             <Link to="/">Артем пицца</Link>
           </li>
           <li>
-            <Link to="/pizza-preview">Просмотр пиццы</Link>
+            <Link to="/pizza-preview">Оформить заказ</Link>
           </li>
-          <li>
-            <Link to="/checkout">Оформить заказ</Link>
-          </li>          
           <li>
             <Link to="/registration">Регистрация</Link>
           </li>
