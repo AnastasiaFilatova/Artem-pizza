@@ -14,9 +14,7 @@ export const PizzaPreviewPage = ({ _usePizzaHook = usePizza }) => {
       <h1>Ваша пицца</h1>
       <PizzaPreview pizza={pizza} />
       <hr />
-      <Redirect to={{ pathname: "/checkout", state: pizza }}>
-        Оформить заказ
-      </Redirect>
+      <Redirect to={{ pathname: "/checkout", state: pizza }} />
     </>
   );
 };
