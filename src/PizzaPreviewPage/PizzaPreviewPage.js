@@ -2,7 +2,7 @@ import { Redirect, Link } from "react-router-dom";
 import { usePizza } from "../PizzaContext";
 import { PizzaPreview } from "../PizzaPreview";
 
-export const PizzaPreviewPage = ({_usePizzaHook=usePizza}) => {
+export const PizzaPreviewPage = ({ _usePizzaHook = usePizza }) => {
   const { pizza } = _usePizzaHook();
 
   if (!pizza) {
@@ -14,7 +14,7 @@ export const PizzaPreviewPage = ({_usePizzaHook=usePizza}) => {
       <h1>Ваша пицца</h1>
       <PizzaPreview pizza={pizza} />
       <hr />
-      <Link to="/checkout">Оформить заказ</Link>
+      <Link to={{ pathname: "/checkout", state: pizza }}>Оформить заказ</Link>
     </>
   );
 };

@@ -4,6 +4,7 @@
   "private": true,
   "description": "Website for a pizza restaurant",
   "dependencies": {
+    "@hookform/resolvers": "^1.1.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/react-hooks": "^3.4.2",
@@ -11,10 +12,12 @@
     "history": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-hook-form": "^6.11.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "react-test-renderer": "^17.0.1",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "yup": "^0.31.0"
   },
   "scripts": {
     "start": "react-scripts start",
