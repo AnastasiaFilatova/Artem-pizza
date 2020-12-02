@@ -1,138 +1,48 @@
-import { useState } from "react";
-import { calculatePrice } from "./utils/calculatePrice"
-import { useArray } from "./utils/useArray";
+import { calculatePrice } from "./utils/calculatePrice";
+import { useForm } from "react-hook-form";
 
 export const PizzaForm = ({ onPizzaCreated }) => {
-  const [size, setSize] = useState("30cm");
-  const [base, setBase] = useState("thin");
-  const [sauces, addSauce, removeSauce] = useArray([]);
-  const [cheeses, addCheese, removeCheese] = useArray([]);
-  const [vegetables, addVegetable, removeVegetable] = useArray([]);
-  const [meats, addMeat, removeMeat] = useArray([]);
-  
-  const price = calculatePrice({
-    size,
-    base,
-    sauces,
-    cheeses,
-    vegetables,
-    meats,
+  const { register, handleSubmit, watch } = useForm({
+    defaultValues: {
+      size: "30cm",
+      base: "thin",
+      sauces: [],
+      cheeses: [],
+      vegetables: [],
+      meats: [],
+    },
   });
 
-  console.log("Size: ", size);
-  console.log("Base: ", base);
-  console.log("Sauces: ", sauces);
-  console.log("Cheeses: ", cheeses);
-  console.log("Vegetables: ", vegetables);
-  console.log("Meats ", meats);
+  const values = watch();
+  console.log("-------- ", values);
+  const price = calculatePrice(values);
 
-  const updateSize = (event) => {
-    setSize(event.target.value);
-  };
-
-  const updateBase = (event) => {
-    setBase(event.target.value);
-  };
-
-  const updateSauces = (event) => {
-    const { value, checked } = event.target;
-
-    if (checked) {
-      addSauce(value);
-    } else {
-      removeSauce(value);
-    }
-  };
-
-  const updateCheeses = (event) => {
-    const { value, checked } = event.target;
-
-    if (checked) {
-        addCheese(value);
-    } else {
-        removeCheese(value);
-    }
-  };
-
-  const updateVegetables = (event) => {
-    const { value, checked } = event.target;
-
-    if (checked) {
-      addVegetable(value);
-    } else {
-      removeVegetable(value);
-    }
-  };
-
-  const updateMeats = (event) => {
-    const { value, checked } = event.target;
-
-    if (checked) {
-      addMeat(value);
-    } else {
-      removeMeat(value);
-    }
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    onPizzaCreated({
-      size,
-      base,
-      sauces,
-      cheeses,
-      vegetables,
-      meats,
-    });
+  const onSubmit = (data) => {
+    onPizzaCreated(data);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset>
           <legend>Размер</legend>
           <label>
-            <input
-              type="radio"
-              value="30cm"
-              name="size"
-              onChange={updateSize}
-              checked={size === "30cm"}
-            />
+            <input type="radio" value="30cm" name="size" ref={register} />
             30см
           </label>
           <label>
-            <input
-              type="radio"
-              value="35cm"
-              name="size"
-              onChange={updateSize}
-              checked={size === "35cm"}
-            />
+            <input type="radio" value="35cm" name="size" ref={register} />
             35см
           </label>
         </fieldset>
         <fieldset>
           <legend>Тесто</legend>
           <label>
-            <input
-              type="radio"
-              value="thin"
-              name="base"
-              onChange={updateBase}
-              checked={base === "thin"}
-            />
+            <input type="radio" value="thin" name="base" ref={register} />
             Тонкое
           </label>
           <label>
-            <input
-              type="radio"
-              value="thick"
-              name="base"
-              onChange={updateBase}
-              checked={base === "thick"}
-            />
+            <input type="radio" value="thick" name="base" ref={register} />
             Пышное
           </label>
         </fieldset>
@@ -142,30 +52,17 @@ export const PizzaForm = ({ onPizzaCreated }) => {
             <input
               type="checkbox"
               value="tomato"
-              name="sauce"
-              onChange={updateSauces}
-              checked={sauces.includes("tomato")}
+              name="sauces"
+              ref={register}
             />
             Томатный
           </label>
           <label>
-            <input
-              type="checkbox"
-              value="white"
-              name="sauce"
-              onChange={updateSauces}
-              checked={sauces.includes("white")}
-            />
+            <input type="checkbox" value="white" name="sauces" ref={register} />
             Белый
           </label>
           <label>
-            <input
-              type="checkbox"
-              value="spicy"
-              name="sauce"
-              onChange={updateSauces}
-              checked={sauces.includes("spicy")}
-            />
+            <input type="checkbox" value="spicy" name="sauces" ref={register} />
             Острый
           </label>
         </fieldset>
@@ -175,9 +72,8 @@ export const PizzaForm = ({ onPizzaCreated }) => {
             <input
               type="checkbox"
               value="mozarella"
-              name="cheese"
-              onChange={updateCheeses}
-              checked={cheeses.includes("mozarella")}
+              name="cheeses"
+              ref={register}
             />
             Моцарелла
           </label>
@@ -185,9 +81,8 @@ export const PizzaForm = ({ onPizzaCreated }) => {
             <input
               type="checkbox"
               value="chedder"
-              name="cheese"
-              onChange={updateCheeses}
-              checked={cheeses.includes("chedder")}
+              name="cheeses"
+              ref={register}
             />
             Чеддер
           </label>
@@ -195,9 +90,8 @@ export const PizzaForm = ({ onPizzaCreated }) => {
             <input
               type="checkbox"
               value="dor blue"
-              name="cheese"
-              onChange={updateCheeses}
-              checked={cheeses.includes("dor blue")}
+              name="cheeses"
+              ref={register}
             />
             Дор Блю
           </label>
@@ -208,9 +102,8 @@ export const PizzaForm = ({ onPizzaCreated }) => {
             <input
               type="checkbox"
               value="tomato"
-              name="vegetable"
-              onChange={updateVegetables}
-              checked={vegetables.includes("tomato")}
+              name="vegetables"
+              ref={register}
             />
             Помидор
           </label>
@@ -218,9 +111,8 @@ export const PizzaForm = ({ onPizzaCreated }) => {
             <input
               type="checkbox"
               value="mushrooms"
-              name="vegetable"
-              onChange={updateVegetables}
-              checked={vegetables.includes("mushrooms")}
+              name="vegetables"
+              ref={register}
             />
             Грибы
           </label>
@@ -228,9 +120,8 @@ export const PizzaForm = ({ onPizzaCreated }) => {
             <input
               type="checkbox"
               value="pepper"
-              name="vegetable"
-              onChange={updateVegetables}
-              checked={vegetables.includes("pepper")}
+              name="vegetables"
+              ref={register}
             />
             Перец
           </label>
@@ -238,9 +129,8 @@ export const PizzaForm = ({ onPizzaCreated }) => {
             <input
               type="checkbox"
               value="pineapple"
-              name="vegetable"
-              onChange={updateVegetables}
-              checked={vegetables.includes("pineapple")}
+              name="vegetables"
+              ref={register}
             />
             Ананасы
           </label>
@@ -248,9 +138,8 @@ export const PizzaForm = ({ onPizzaCreated }) => {
             <input
               type="checkbox"
               value="olives"
-              name="vegetable"
-              onChange={updateVegetables}
-              checked={vegetables.includes("olives")}
+              name="vegetables"
+              ref={register}
             />
             Оливки
           </label>
@@ -258,9 +147,8 @@ export const PizzaForm = ({ onPizzaCreated }) => {
             <input
               type="checkbox"
               value="onion"
-              name="vegetable"
-              onChange={updateVegetables}
-              checked={vegetables.includes("onion")}
+              name="vegetables"
+              ref={register}
             />
             Лук
           </label>
@@ -268,9 +156,8 @@ export const PizzaForm = ({ onPizzaCreated }) => {
             <input
               type="checkbox"
               value="broccoli"
-              name="vegetable"
-              onChange={updateVegetables}
-              checked={vegetables.includes("broccoli")}
+              name="vegetables"
+              ref={register}
             />
             Брокколи
           </label>
@@ -278,53 +165,33 @@ export const PizzaForm = ({ onPizzaCreated }) => {
         <fieldset>
           <legend>Добавьте мясо</legend>
           <label>
-            <input
-              type="checkbox"
-              value="bacon"
-              name="meat"
-              onChange={updateMeats}
-              checked={meats.includes("bacon")}
-            />
+            <input type="checkbox" value="bacon" name="meats" ref={register} />
             Бекон
           </label>
           <label>
             <input
               type="checkbox"
               value="pepperoni"
-              name="meat"
-              onChange={updateMeats}
-              checked={meats.includes("pepperoni")}
+              name="meats"
+              ref={register}
             />
             Пепперони
           </label>
           <label>
-            <input
-              type="checkbox"
-              value="ham"
-              name="meat"
-              onChange={updateMeats}
-              checked={meats.includes("ham")}
-            />
+            <input type="checkbox" value="ham" name="meats" ref={register} />
             Ветчина
           </label>
           <label>
             <input
               type="checkbox"
               value="chicken"
-              name="meat"
-              onChange={updateMeats}
-              checked={meats.includes("chicken")}
+              name="meats"
+              ref={register}
             />
             Курица
           </label>
           <label>
-            <input
-              type="checkbox"
-              value="salami"
-              name="meat"
-              onChange={updateMeats}
-              checked={meats.includes("salami")}
-            />
+            <input type="checkbox" value="salami" name="meats" ref={register} />
             Салями
           </label>
         </fieldset>
