@@ -5,7 +5,9 @@ import * as yup from "yup";
 const schema = yup.object().shape({
   price: yup
     .number()
-    .transform((cv, ov) => (ov === "" ? undefined : cv))
+    .transform((currentValue, originalValue) =>
+      originalValue === "" ? undefined : currentValue
+    )
     .typeError("Цена должна быть числом")
     .min(0, "Цена должна быть не меньше нуля")
     .required("Цена - обязательное поле"),
@@ -13,18 +15,13 @@ const schema = yup.object().shape({
   slug: yup.string().required("Введите идентификатор продукта"),
   picture: yup.mixed(),
 });
-console.log(schema);
 
 function App() {
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
-  console.log(errors);
-
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-  });
+  const onSubmit = handleSubmit((data) => {});
 
   return (
     <form onSubmit={onSubmit}>
