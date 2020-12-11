@@ -1,17 +1,24 @@
-import { SIZE, BASE, SAUCES, CHEESES, MEATS, VEGETABLES } from "./utils/pizzaData";
+import {
+  SIZE,
+  BASE,
+  SAUCES,
+  CHEESES,
+  MEATS,
+  VEGETABLES,
+} from "./utils/pizzaData";
+
 import { calculatePrice } from "./utils/calculatePrice";
 
-
-export const PizzaPreview = (pizza) => {
-    const sauces = pizza.pizza.sauces;
-    const cheeses = pizza.pizza.cheeses;
-    const vegetables = pizza.pizza.vegetables;
-    const meats = pizza.pizza.meats;
+export const PizzaPreview = ({ pizza }) => {
+  const sauces = pizza.sauces;
+  const cheeses = pizza.cheeses;
+  const vegetables = pizza.vegetables;
+  const meats = pizza.meats;
 
   return (
     <>
       <li>
-        {SIZE[pizza.pizza.size].name} {BASE[pizza.pizza.base].name}
+        {SIZE[pizza.size].name} {BASE[pizza.base].name}
       </li>
       {sauces.length > 0 && (
         <li>{sauces.map((sauce) => SAUCES[sauce].name).join(", ")}</li>
@@ -27,7 +34,7 @@ export const PizzaPreview = (pizza) => {
       {meats.length > 0 && (
         <li>{meats.map((meat) => MEATS[meat].name).join(", ")}</li>
       )}
-      <p>{calculatePrice(pizza.pizza)} руб.</p>
+      <p>{calculatePrice(pizza)} руб.</p>
     </>
   );
 };
