@@ -1,21 +1,25 @@
 # ArtemPizza - pizza online store
-An online store that allows customers create their own pizzas and order it. App made in ReactJs, bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+An online store that allows customers create their own pizzas and order it. App made in ReactJs, bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Project has admin app and client app. Through admin app will be possible to add new pizza ingredients and change existed ingredients.
 
 ## Project dependencies
-* node js
-* yarn
-* git
+
+- node js
+- yarn
+- git
 
 ## Installing testing libraries:
-    yarn add @testing-library/react-hooks
-    yarn add react-test-renderer 
 
+    yarn add @testing-library/react-hooks
+    yarn add react-test-renderer
 
 ## How to run a project on your local machine
-    git clone https://github.com/AnastasiaFilatova/Artem-pizza.git
-    cd artem-pizza
 
-In the project directory, you can run:
+    git clone https://github.com/AnastasiaFilatova/Artem-pizza.git
+    cd artem-pizza/client # to run client app
+    cd artem-pizza/admin # to run admin app
+
+In the app directory, you can run:
 
 ### `yarn start`
 
