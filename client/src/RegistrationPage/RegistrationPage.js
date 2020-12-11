@@ -17,7 +17,6 @@ export const RegistrationPage = ({ formSubmit }) => {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    console.log(data);
     formSubmit(data);
   };
 

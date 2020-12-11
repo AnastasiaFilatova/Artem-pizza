@@ -16,7 +16,7 @@ export const LoginPage = () => {
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {};
 
   return (
     <>

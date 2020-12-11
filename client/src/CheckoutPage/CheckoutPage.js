@@ -39,12 +39,11 @@ const normalizeCardNumber = (value) => {
 
 export const CheckoutPage = () => {
   const location = useLocation();
-  console.log("Pizza order: ", location.state);
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {};
 
   return (
     <>
