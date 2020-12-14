@@ -14,7 +14,6 @@ export const PizzaForm = ({ onPizzaCreated }) => {
   });
 
   const values = watch();
-  console.log("-------- ", values);
   const price = calculatePrice(values);
 
   const onSubmit = (data) => {

@@ -8,7 +8,7 @@ import { calculatePrice } from "../utils/calculatePrice";
 
 const schema = yup.object().shape({
   adress: yup.string().required("Введите адрес доставки"),
-  porch: yup
+  door: yup
     .number()
     .typeError("Введите номер подъезда")
     .positive("Введите позитивное число"),
@@ -55,8 +55,8 @@ export const CheckoutPage = () => {
         <input type="text" name="adress" ref={register} />
         <p>{errors.adress?.message}</p>
         <label>Подъезд</label>
-        <input type="text" name="porch" ref={register} />
-        <p>{errors.porch?.message}</p>
+        <input type="text" name="door" ref={register} />
+        <p>{errors.door?.message}</p>
         <label>Этаж</label>
         <input type="text" name="floor" ref={register} />
         <p>{errors.floor?.message}</p>
