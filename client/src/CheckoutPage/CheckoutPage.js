@@ -40,7 +40,7 @@ const normalizeCardNumber = (value) => {
 export const CheckoutPage = () => {
   const location = useLocation();
 
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, setValue } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {};
@@ -73,7 +73,7 @@ export const CheckoutPage = () => {
           id="cardNumber"
           onChange={(event) => {
             const { value } = event.target;
-            event.target.value = normalizeCardNumber(value);
+            setValue("cardNumber", normalizeCardNumber(value));
           }}
           ref={register}
         />
