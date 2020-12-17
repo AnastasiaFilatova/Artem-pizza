@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { PizzaPreview } from "../PizzaPreview";
+import { PizzaPreviewPage } from "../PizzaPreviewPage/PizzaPreviewPage";
 import { calculatePrice } from "../utils/calculatePrice";
+import { useSelector } from "react-redux";
+import { getPizza } from "../state/pizza/selectors";
 
 const schema = yup.object().shape({
   adress: yup.string().required("Введите адрес доставки"),
@@ -38,7 +40,11 @@ const normalizeCardNumber = (value) => {
 };
 
 export const CheckoutPage = () => {
-  const location = useLocation();
+  const pizza = useSelector(getPizza);
+
+  // set price in a global state
+  //const price = useSelector(getPrice;
+  const price = 0;
 
   const { register, handleSubmit, errors, setValue } = useForm({
     resolver: yupResolver(schema),
@@ -48,7 +54,7 @@ export const CheckoutPage = () => {
   return (
     <>
       <h1>Оформить заказ</h1>
-      <PizzaPreview pizza={location.state} />
+      <PizzaPreviewPage pizza={pizza} />
       <br />
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>Адрес доставки</label>
@@ -78,7 +84,7 @@ export const CheckoutPage = () => {
           ref={register}
         />
         <p>{errors.cardNumber?.message}</p>
-        <button>Оплатить {calculatePrice(location.state)} руб.</button>
+        <button>Оплатить {price} руб.</button>
       </form>
 
       <hr />

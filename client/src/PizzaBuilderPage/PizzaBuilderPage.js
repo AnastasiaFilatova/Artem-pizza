@@ -1,15 +1,47 @@
 import { useHistory } from "react-router-dom";
-import { usePizza } from "../PizzaContext";
+import { useEffect } from "react";
 import { PizzaForm } from "../PizzaForm";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getIngredientsByCategory,
+  getIsLoading,
+} from "../state/ingredients/selectors";
+import { fetchIngredients } from "../state/ingredients/thunk";
+import { setPizza } from "../state/pizza/actions";
 
-export const PizzaBuilderPage = ({_usePizzaHook=usePizza}) => {
-    const {setPizza} =  _usePizzaHook();
-    const history = useHistory();
-    
-    const onPizzaChange = (pizza) => {
-        setPizza(pizza)
-        history.push("pizza-preview")
-    }
+export const PizzaBuilderPage = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const isLoading = useSelector(getIsLoading);
 
-    return <><h1>Артем пицца</h1><PizzaForm onPizzaCreated={onPizzaChange} /></>
-}
+  const state = useSelector((state) => state);
+  const sauces = useSelector(getIngredientsByCategory("sauces"));
+  const cheeses = useSelector(getIngredientsByCategory("cheeses"));
+  const meats = useSelector(getIngredientsByCategory("meats"));
+  const vegetables = useSelector(getIngredientsByCategory("vegetables"));
+
+  const onPizzaChange = (pizza) => {
+    dispatch(setPizza(pizza));
+    history.push("pizza-preview");
+  };
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, []);
+
+  if (isLoading) {
+    return <>Loading...</>;
+  }
+  return (
+    <>
+      <h1>Артем пицца</h1>
+      <PizzaForm
+        sauces={sauces}
+        cheeses={cheeses}
+        meats={meats}
+        vegetables={vegetables}
+        onPizzaCreated={onPizzaChange}
+      />
+    </>
+  );
+};

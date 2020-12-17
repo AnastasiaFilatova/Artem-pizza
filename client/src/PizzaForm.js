@@ -1,7 +1,13 @@
 import { calculatePrice } from "./utils/calculatePrice";
 import { useForm } from "react-hook-form";
 
-export const PizzaForm = ({ onPizzaCreated }) => {
+export const PizzaForm = ({
+  onPizzaCreated,
+  sauces,
+  cheeses,
+  meats,
+  vegetables,
+}) => {
   const { register, handleSubmit, watch } = useForm({
     defaultValues: {
       size: "30cm",
@@ -14,7 +20,20 @@ export const PizzaForm = ({ onPizzaCreated }) => {
   });
 
   const values = watch();
-  const price = calculatePrice(values);
+  const selectedToppings = [
+    ...values.sauces,
+    ...values.cheeses,
+    ...values.vegetables,
+    ...values.meats,
+  ];
+
+  const toppingsData = [...sauces, ...cheeses, ...vegetables, ...meats];
+  const price = calculatePrice(
+    values.size,
+    values.base,
+    selectedToppings,
+    toppingsData
+  );
 
   const onSubmit = (data) => {
     onPizzaCreated(data);
@@ -47,152 +66,67 @@ export const PizzaForm = ({ onPizzaCreated }) => {
         </fieldset>
         <fieldset>
           <legend>Выберите соус</legend>
-          <label>
-            <input
-              type="checkbox"
-              value="tomato"
-              name="sauces"
-              ref={register}
-            />
-            Томатный
-          </label>
-          <label>
-            <input type="checkbox" value="white" name="sauces" ref={register} />
-            Белый
-          </label>
-          <label>
-            <input type="checkbox" value="spicy" name="sauces" ref={register} />
-            Острый
-          </label>
+          {sauces.map((sauce) => {
+            return (
+              <label key={sauce.id}>
+                <input
+                  ref={register}
+                  type="checkbox"
+                  value={sauce.slug}
+                  name="sauces"
+                />
+                {sauce.name}
+              </label>
+            );
+          })}
         </fieldset>
         <fieldset>
           <legend>Добавьте сыр</legend>
-          <label>
-            <input
-              type="checkbox"
-              value="mozarella"
-              name="cheeses"
-              ref={register}
-            />
-            Моцарелла
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="chedder"
-              name="cheeses"
-              ref={register}
-            />
-            Чеддер
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="dor blue"
-              name="cheeses"
-              ref={register}
-            />
-            Дор Блю
-          </label>
+          {cheeses.map((cheese) => {
+            return (
+              <label key={cheese.id}>
+                <input
+                  ref={register}
+                  type="checkbox"
+                  value={cheese.slug}
+                  name="cheeses"
+                />
+                {cheese.name}
+              </label>
+            );
+          })}
         </fieldset>
         <fieldset>
           <legend>Добавьте овощи</legend>
-          <label>
-            <input
-              type="checkbox"
-              value="tomato"
-              name="vegetables"
-              ref={register}
-            />
-            Помидор
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="mushrooms"
-              name="vegetables"
-              ref={register}
-            />
-            Грибы
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="pepper"
-              name="vegetables"
-              ref={register}
-            />
-            Перец
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="pineapple"
-              name="vegetables"
-              ref={register}
-            />
-            Ананасы
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="olives"
-              name="vegetables"
-              ref={register}
-            />
-            Оливки
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="onion"
-              name="vegetables"
-              ref={register}
-            />
-            Лук
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="broccoli"
-              name="vegetables"
-              ref={register}
-            />
-            Брокколи
-          </label>
+          {vegetables.map((vegetable) => {
+            return (
+              <label key={vegetable.id}>
+                <input
+                  ref={register}
+                  type="checkbox"
+                  value={vegetable.slug}
+                  name="vegetables"
+                />
+                {vegetable.name}
+              </label>
+            );
+          })}
         </fieldset>
         <fieldset>
           <legend>Добавьте мясо</legend>
-          <label>
-            <input type="checkbox" value="bacon" name="meats" ref={register} />
-            Бекон
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="pepperoni"
-              name="meats"
-              ref={register}
-            />
-            Пепперони
-          </label>
-          <label>
-            <input type="checkbox" value="ham" name="meats" ref={register} />
-            Ветчина
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="chicken"
-              name="meats"
-              ref={register}
-            />
-            Курица
-          </label>
-          <label>
-            <input type="checkbox" value="salami" name="meats" ref={register} />
-            Салями
-          </label>
+          {meats.map((meat) => {
+            return (
+              <label key={meat.id}>
+                <input
+                  ref={register}
+                  type="checkbox"
+                  value={meat.slug}
+                  name="meats"
+                />
+                {meat.name}
+              </label>
+            );
+          })}
         </fieldset>
         <button>Заказать за {price} руб.</button>
       </form>
