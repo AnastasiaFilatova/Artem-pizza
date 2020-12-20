@@ -7,6 +7,7 @@ import { PizzaPreviewPage } from "../PizzaPreviewPage/PizzaPreviewPage";
 import { calculatePrice } from "../utils/calculatePrice";
 import { useSelector } from "react-redux";
 import { getPizza } from "../state/pizza/selectors";
+import { getPrice } from "../state/price/selectors";
 
 const schema = yup.object().shape({
   adress: yup.string().required("Введите адрес доставки"),
@@ -41,10 +42,7 @@ const normalizeCardNumber = (value) => {
 
 export const CheckoutPage = () => {
   const pizza = useSelector(getPizza);
-
-  // set price in a global state
-  //const price = useSelector(getPrice;
-  const price = 0;
+  const price = useSelector(getPrice);
 
   const { register, handleSubmit, errors, setValue } = useForm({
     resolver: yupResolver(schema),

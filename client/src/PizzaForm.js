@@ -1,5 +1,7 @@
 import { calculatePrice } from "./utils/calculatePrice";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { setPrice } from "./state/price/actions";
 
 export const PizzaForm = ({
   onPizzaCreated,
@@ -34,9 +36,11 @@ export const PizzaForm = ({
     selectedToppings,
     toppingsData
   );
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     onPizzaCreated(data);
+    dispatch(setPrice(price));
   };
 
   return (

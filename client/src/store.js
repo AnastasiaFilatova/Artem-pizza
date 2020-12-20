@@ -1,6 +1,7 @@
 import { createStore, combineReducers } from "redux";
 import { ingredientsReducer } from "./state/ingredients/ingredientsReducer";
 import { pizzaReducer } from "./state/pizza/pizzaReducer";
+import { priceReducer } from "./state/price/priceReducer";
 import { compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
@@ -17,6 +18,7 @@ export const store = createStore(
   combineReducers({
     ingredients: ingredientsReducer,
     pizza: pizzaReducer,
+    price: priceReducer,
   }),
   enhancer
 );
