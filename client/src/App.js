@@ -6,6 +6,7 @@ import { LoginPage } from "./LoginPage";
 import { RegistrationPage } from "./RegistrationPage";
 import { HistoryPage } from "./HistoryPage";
 import { NotFoundPage } from "./NotFoundPage";
+import { OrderPage } from "./OrderPage/OrderPage";
 
 function App() {
   return (
@@ -44,6 +45,9 @@ function App() {
         </Route>
         <Route path="/login">
           <LoginPage />
+        </Route>
+        <Route path="/order">
+          <OrderPage />
         </Route>
         <Route path="/history">
           <HistoryPage />

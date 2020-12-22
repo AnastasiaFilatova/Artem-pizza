@@ -42,7 +42,7 @@ describe("CheckoutPage", () => {
         });
 
         expect(onSubmit).toBeCalledWith({
-          adress: "Foo",
+          address: "Foo",
           door: "Bar",
         });
       });
