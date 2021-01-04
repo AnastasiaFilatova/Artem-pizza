@@ -1,8 +1,11 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { setAuthorised } from "../state/authorisation/actions";
+import { getAuthorisation } from "../state/authorisation/selectors";
 
 const schema = yup.object().shape({
   email: yup.string().email("Email введен неверно").required("Введите email"),
@@ -16,9 +19,16 @@ export const RegistrationPage = ({ formSubmit }) => {
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
+  const isAuthorised = useSelector(getAuthorisation);
+  const dispatch = useDispatch();
+
   const onSubmit = (data) => {
-    formSubmit(data);
+    dispatch(setAuthorised(true));
   };
+
+  if (isAuthorised) {
+    return <>Регистрация прошла успешно!</>;
+  }
 
   return (
     <>
@@ -32,8 +42,6 @@ export const RegistrationPage = ({ formSubmit }) => {
         <p>{errors.password?.message}</p>
         <button>Зарегистрироваться</button>
       </form>
-      <hr />
-      <Link to="/login">Логин</Link>
     </>
   );
 };

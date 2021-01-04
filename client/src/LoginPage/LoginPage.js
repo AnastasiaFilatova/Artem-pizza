@@ -42,8 +42,6 @@ export const LoginPage = () => {
         <p>{errors.password?.message}</p>
         <button>Войти</button>
       </form>
-      <hr />
-      <Link to="/registration">Регистрация</Link>
     </>
   );
 };
