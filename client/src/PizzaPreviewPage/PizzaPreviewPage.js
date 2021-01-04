@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { PizzaPreview } from "./PizzaPreview";
 import { getPizza } from "../state/pizza/selectors";
 

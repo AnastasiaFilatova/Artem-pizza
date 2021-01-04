@@ -14,7 +14,6 @@ export const PizzaBuilderPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
 
-  const state = useSelector((state) => state);
   const sauces = useSelector(getIngredientsByCategory("sauces"));
   const cheeses = useSelector(getIngredientsByCategory("cheeses"));
   const meats = useSelector(getIngredientsByCategory("meats"));
