@@ -6,15 +6,18 @@ import { BrowserRouter } from "react-router-dom";
 import { PizzaProvider } from "./IngredientsContext";
 import { store } from "./store";
 import { Provider } from "react-redux";
+import { OrdersProvider } from "./OrdersContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <PizzaProvider>
-      <BrowserRouter>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </BrowserRouter>
+      <OrdersProvider>
+        <BrowserRouter>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </BrowserRouter>
+      </OrdersProvider>
     </PizzaProvider>
   </React.StrictMode>,
   document.getElementById("root")

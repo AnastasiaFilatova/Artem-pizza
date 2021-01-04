@@ -11,3 +11,7 @@ export const postOrder = async (order) => {
     },
   }).then((res) => res.json());
 };
+
+export const getOrders = async () => {
+  return fetch("http://localhost:4000/orders").then((res) => res.json());
+};
