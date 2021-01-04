@@ -10,7 +10,7 @@ export const OrdersProvider = ({ children }) => {
   const loadOrders = async () => {
     setIsLoading(true);
     const data = await getOrders();
-    console.log("in orders context , data ", data);
+
     setOrders(data);
     setIsLoading(false);
   };

@@ -6,9 +6,7 @@ import { fetchOrders } from "../state/orders/thunk";
 export const OrdersListPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
-
   const state = useSelector((state) => state);
-  console.log("orers list page state ", state);
 
   useEffect(() => {
     dispatch(fetchOrders());

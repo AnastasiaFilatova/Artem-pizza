@@ -5,6 +5,7 @@ import { priceReducer } from "./state/price/priceReducer";
 import { ordersReducer } from "./state/orders/ordersReducer";
 import { compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import { authReducer } from "./state/authorisation/authReducer";
 
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -21,6 +22,7 @@ export const store = createStore(
     pizza: pizzaReducer,
     price: priceReducer,
     orders: ordersReducer,
+    authorised: authReducer,
   }),
   enhancer
 );
