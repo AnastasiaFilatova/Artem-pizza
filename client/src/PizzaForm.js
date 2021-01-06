@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { setPrice } from "./state/price/actions";
 import RadioInputGroup from "./utils/RadioInputGroup";
 import { SIZE, BASE } from "./utils/pizzaData";
+import { CheckBoxGroup } from "./utils/CheckBoxGroup";
 
 export const PizzaForm = ({
   onPizzaCreated,
@@ -72,67 +73,23 @@ export const PizzaForm = ({
         </fieldset>
         <fieldset>
           <legend>Выберите соус</legend>
-          {sauces.map((sauce) => {
-            return (
-              <label key={sauce.id}>
-                <input
-                  ref={register}
-                  type="checkbox"
-                  value={sauce.slug}
-                  name="sauces"
-                />
-                {sauce.name}
-              </label>
-            );
-          })}
+          <CheckBoxGroup items={sauces} name="sauces" register={register} />
         </fieldset>
         <fieldset>
           <legend>Добавьте сыр</legend>
-          {cheeses.map((cheese) => {
-            return (
-              <label key={cheese.id}>
-                <input
-                  ref={register}
-                  type="checkbox"
-                  value={cheese.slug}
-                  name="cheeses"
-                />
-                {cheese.name}
-              </label>
-            );
-          })}
+          <CheckBoxGroup items={cheeses} name="cheeses" register={register} />
         </fieldset>
         <fieldset>
           <legend>Добавьте овощи</legend>
-          {vegetables.map((vegetable) => {
-            return (
-              <label key={vegetable.id}>
-                <input
-                  ref={register}
-                  type="checkbox"
-                  value={vegetable.slug}
-                  name="vegetables"
-                />
-                {vegetable.name}
-              </label>
-            );
-          })}
+          <CheckBoxGroup
+            items={vegetables}
+            name="vegetables"
+            register={register}
+          />
         </fieldset>
         <fieldset>
           <legend>Добавьте мясо</legend>
-          {meats.map((meat) => {
-            return (
-              <label key={meat.id}>
-                <input
-                  ref={register}
-                  type="checkbox"
-                  value={meat.slug}
-                  name="meats"
-                />
-                {meat.name}
-              </label>
-            );
-          })}
+          <CheckBoxGroup items={meats} name="meats" register={register} />
         </fieldset>
         <button>Заказать за {price} руб.</button>
       </form>
