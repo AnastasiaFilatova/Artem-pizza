@@ -2,6 +2,8 @@ import { calculatePrice } from "./utils/calculatePrice";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setPrice } from "./state/price/actions";
+import RadioInputGroup from "./utils/RadioInputGroup";
+import { SIZE, BASE } from "./utils/pizzaData";
 
 export const PizzaForm = ({
   onPizzaCreated,
@@ -48,25 +50,25 @@ export const PizzaForm = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset>
           <legend>Размер</legend>
-          <label>
-            <input type="radio" value="30cm" name="size" ref={register} />
-            30см
-          </label>
-          <label>
-            <input type="radio" value="35cm" name="size" ref={register} />
-            35см
-          </label>
+          <RadioInputGroup
+            items={[
+              { value: "30cm", label: SIZE["30cm"].name },
+              { value: "35cm", label: SIZE["35cm"].name },
+            ]}
+            name="size"
+            register={register}
+          />
         </fieldset>
         <fieldset>
           <legend>Тесто</legend>
-          <label>
-            <input type="radio" value="thin" name="base" ref={register} />
-            Тонкое
-          </label>
-          <label>
-            <input type="radio" value="thick" name="base" ref={register} />
-            Пышное
-          </label>
+          <RadioInputGroup
+            items={[
+              { value: "thin", label: BASE["thin"].name },
+              { value: "thick", label: BASE["thick"].name },
+            ]}
+            name="base"
+            register={register}
+          />
         </fieldset>
         <fieldset>
           <legend>Выберите соус</legend>
