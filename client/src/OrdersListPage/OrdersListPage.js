@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchOrders } from "../state/orders/thunk";
 import { getAuthorisation } from "../state/authorisation/selectors";
+import { getIngredients } from "../state/ingredients/selectors";
 
 export const OrdersListPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
   const isAuthorised = useSelector(getAuthorisation);
+  const ingredientsInfo = useSelector(getIngredients);
 
   useEffect(() => {
     dispatch(fetchOrders());
@@ -32,6 +34,17 @@ export const OrdersListPage = () => {
     <>
       <h1>Заказы</h1>
       <p>{JSON.stringify(orders)}</p>
+      {orders.map((order) => (
+        <div>
+          <p>{order.name}</p>
+          <p>{order.card_number}</p>
+          <p>
+            {order.ingredients &&
+              order.ingredients.map((item) => <p>{item}</p>)}
+          </p>
+          <hr />
+        </div>
+      ))}
     </>
   );
 };

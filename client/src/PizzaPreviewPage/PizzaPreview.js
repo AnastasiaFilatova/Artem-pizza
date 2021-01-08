@@ -8,8 +8,6 @@ export const PizzaPreview = ({ pizza }) => {
   const meatsInfo = useSelector(getIngredientsByCategory("meats"));
   const vegetablesInfo = useSelector(getIngredientsByCategory("vegetables"));
 
-  console.log(saucesInfo);
-
   const size = SIZE[pizza.size].name;
   const base = BASE[pizza.base].name;
   const sauces = pizza.sauces;

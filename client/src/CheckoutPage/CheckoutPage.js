@@ -44,6 +44,15 @@ export const CheckoutPage = () => {
   const price = useSelector(getPrice);
 
   const ingredients = Object.values(pizza);
+  const ingredientsList = [];
+
+  ingredients.forEach(function (item) {
+    if (item instanceof Array) {
+      ingredientsList.push(...item);
+    } else {
+      ingredientsList.push(item);
+    }
+  });
 
   const { register, handleSubmit, errors, setValue } = useForm({
     resolver: yupResolver(schema),
@@ -51,7 +60,7 @@ export const CheckoutPage = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     const order = {
-      ingredients: ingredients,
+      ingredients: ingredientsList,
       address: data.address,
       name: data.name,
       card_number: data.cardNumber,
