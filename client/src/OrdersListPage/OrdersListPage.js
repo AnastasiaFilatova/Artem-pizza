@@ -10,7 +10,6 @@ export const OrdersListPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
   const isAuthorised = useSelector(getAuthorisation);
-  const ingredientsInfo = useSelector(getIngredients);
 
   useEffect(() => {
     dispatch(fetchOrders());
@@ -33,7 +32,6 @@ export const OrdersListPage = () => {
   return (
     <>
       <h1>Заказы</h1>
-      <p>{JSON.stringify(orders)}</p>
       {orders.map((order) => (
         <div>
           <p>{order.name}</p>
