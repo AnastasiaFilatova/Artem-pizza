@@ -15,8 +15,8 @@ export const PizzaBuilderPage = () => {
   const isLoading = useSelector(getIsLoading);
 
   const sauces = useSelector(getIngredientsByCategory("sauces"));
-  const cheeses = useSelector(getIngredientsByCategory("cheeses"));
-  const meats = useSelector(getIngredientsByCategory("meats"));
+  const cheeses = useSelector(getIngredientsByCategory("cheese"));
+  const meats = useSelector(getIngredientsByCategory("meat"));
   const vegetables = useSelector(getIngredientsByCategory("vegetables"));
 
   const onPizzaChange = (pizza) => {

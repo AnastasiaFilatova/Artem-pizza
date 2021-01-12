@@ -1,9 +1,11 @@
 export const getIngredients = async () => {
-  return fetch("http://localhost:4000/ingredients").then((res) => res.json());
+  return fetch("https://i4qqz.sse.codesandbox.io/ingredients").then((res) =>
+    res.json()
+  );
 };
 
 export const postOrder = async (order) => {
-  return fetch("http://localhost:4000/orders", {
+  return fetch("https://i4qqz.sse.codesandbox.io/orders", {
     method: "POST",
     body: JSON.stringify(order),
     headers: {
@@ -13,5 +15,7 @@ export const postOrder = async (order) => {
 };
 
 export const getOrders = async () => {
-  return fetch("http://localhost:4000/orders").then((res) => res.json());
+  return fetch("https://i4qqz.sse.codesandbox.io/orders").then((res) =>
+    res.json()
+  );
 };

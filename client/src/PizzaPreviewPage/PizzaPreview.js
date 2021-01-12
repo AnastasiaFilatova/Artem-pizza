@@ -4,8 +4,8 @@ import { getIngredientsByCategory } from "../state/ingredients/selectors";
 
 export const PizzaPreview = ({ pizza }) => {
   const saucesInfo = useSelector(getIngredientsByCategory("sauces"));
-  const cheesesInfo = useSelector(getIngredientsByCategory("cheeses"));
-  const meatsInfo = useSelector(getIngredientsByCategory("meats"));
+  const cheesesInfo = useSelector(getIngredientsByCategory("cheese"));
+  const meatsInfo = useSelector(getIngredientsByCategory("meat"));
   const vegetablesInfo = useSelector(getIngredientsByCategory("vegetables"));
 
   const size = SIZE[pizza.size].name;
