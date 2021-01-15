@@ -2,34 +2,34 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router";
 import { render, fireEvent } from "@testing-library/react";
-import { RegistrationPage } from "../RegistrationPage";
+import { LoginPage } from "./LoginPage";
 import { act } from "react-dom/test-utils";
 import { authReducer } from "../state/authorisation/authReducer";
+import { getAuthorisation } from "../state/authorisation/selectors";
 
 const store = createStore(authReducer, { value: false });
 
-describe("RegistrationPage", () => {
-  it("registration form renders correctly", () => {
-    const { getByText, getByLabelText } = render(
+describe("LoginPage", () => {
+  it("login page renders correctly", () => {
+    const { getByText } = render(
       <MemoryRouter>
         <Provider store={store}>
-          <RegistrationPage />
+          <LoginPage />
         </Provider>
       </MemoryRouter>
     );
-    expect(getByLabelText("Email")).toBeInTheDocument();
-    expect(getByLabelText("Пароль")).toBeInTheDocument();
-    expect(getByText("Зарегистрироваться")).toBeInTheDocument();
+    expect(getByText("Email")).toBeInTheDocument();
+    expect(getByText("Пароль")).toBeInTheDocument();
+    expect(getByText("Войти")).toBeInTheDocument();
   });
 
-  // describe("on submit", () => {
-  //   it("collects email and password", async () => {
+  //   it("it sets authorised to true on form submition", async () => {
   //     const formSubmit = jest.fn().mockImplementation((data) => data);
 
-  //     const { getByText, getByLabelText } = render(
+  //     const { getByLabelText, getByText } = render(
   //       <MemoryRouter>
   //         <Provider store={store}>
-  //           <RegistrationPage onSubmit={formSubmit} />
+  //           <LoginPage onSubmit={formSubmit} />
   //         </Provider>
   //       </MemoryRouter>
   //     );
@@ -40,15 +40,12 @@ describe("RegistrationPage", () => {
   //     fireEvent.input(getByLabelText("Пароль"), {
   //       target: { value: "Bar56565656" },
   //     });
-
   //     await act(async () => {
-  //       fireEvent.submit(getByText("Зарегистрироваться"));
+  //       fireEvent.submit(getByText("Войти"));
   //     });
-
   //     expect(formSubmit).toBeCalledWith({
   //       email: "Foo@foo.com",
   //       password: "Bar56565656",
   //     });
   //   });
-  // });
 });

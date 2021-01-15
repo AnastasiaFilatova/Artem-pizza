@@ -4,10 +4,10 @@ export const ordersReducer = (state = "loading", action) => {
       return action.payload;
     }
     case "orders/error": {
-      return action.payload;
+      return state;
     }
     case "orders/request": {
-      return "loading";
+      return state;
     }
     default:
       return state;

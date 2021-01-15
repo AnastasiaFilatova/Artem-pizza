@@ -7,6 +7,6 @@ export const fetchOrders = () => async (dispatch) => {
     const data = await getOrders();
     dispatch(ordersSuccess(data));
   } catch (error) {
-    // dispatch(ingredientsError(error));
+    dispatch(ordersError(error));
   }
 };
