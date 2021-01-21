@@ -28,10 +28,7 @@ export const AddIngredientPage = () => {
   });
 
   const { mutateAsync: createIngredient } = useMutation((data) =>
-    fetch("https://i4qqz.sse.codesandbox.io/ingredients", {
-      method: "POST",
-      body: data,
-    }).then((response) => response.json())
+    postIngredient(data)
   );
 
   const onSubmit = handleSubmit(async (data) => {
