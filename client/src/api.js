@@ -1,11 +1,11 @@
 export const getIngredients = async () => {
-  return fetch("https://i4qqz.sse.codesandbox.io/ingredients").then((res) =>
+  return fetch(`${process.env.REACT_APP_API_SERVER}/ingredients`).then((res) =>
     res.json()
   );
 };
 
 export const postOrder = async (order) => {
-  return fetch("https://i4qqz.sse.codesandbox.io/orders", {
+  return fetch(`${process.env.REACT_APP_API_SERVER}/orders`, {
     method: "POST",
     body: JSON.stringify(order),
     headers: {
@@ -15,7 +15,7 @@ export const postOrder = async (order) => {
 };
 
 export const getOrders = async () => {
-  return fetch("https://i4qqz.sse.codesandbox.io/orders").then((res) =>
+  return fetch(`${process.env.REACT_APP_API_SERVER}/orders`).then((res) =>
     res.json()
   );
 };

@@ -1,5 +1,5 @@
 export const postIngredient = (data) => {
-  return fetch("https://i4qqz.sse.codesandbox.io/ingredients", {
+  return fetch(`${process.env.REACT_APP_API_SERVER}/ingredients`, {
     method: "POST",
     body: data,
   }).then((response) => response.json());
