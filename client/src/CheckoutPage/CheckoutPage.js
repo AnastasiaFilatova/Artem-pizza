@@ -54,6 +54,10 @@ export const CheckoutPage = () => {
     }
   });
 
+  const size = Number(ingredientsList[0].slice(0, -2));
+  const dough = ingredientsList[1];
+  const sauces = [ingredientsList[2]];
+
   const { register, handleSubmit, errors, setValue } = useForm({
     resolver: yupResolver(schema),
   });
@@ -61,13 +65,14 @@ export const CheckoutPage = () => {
   const onSubmit = handleSubmit(async (data) => {
     const order = {
       ingredients: ingredientsList,
+      sauces: sauces,
+      size: size,
+      dough: dough,
       address: data.address,
       name: data.name,
       card_number: data.cardNumber,
     };
-
     const result = await postOrder(order);
-
     if (result.message === "Success") {
       history.push("order");
     } else {
