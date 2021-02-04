@@ -2,6 +2,7 @@ import { Route, Link, Switch } from "react-router-dom";
 import { PizzaBuilderPage } from "./PizzaBuilderPage";
 import { PizzaPreviewPage } from "./PizzaPreviewPage";
 import { CheckoutPage } from "./CheckoutPage";
+import { CheckoutErrorPage } from "./CheckoutErrorPage";
 import { LoginPage } from "./LoginPage";
 import { RegistrationPage } from "./RegistrationPage";
 import { NotFoundPage } from "./NotFoundPage";
@@ -39,6 +40,9 @@ function App() {
         </Route>
         <Route path="/checkout">
           <CheckoutPage />
+        </Route>
+        <Route path="/checkout-error">
+          <CheckoutErrorPage />
         </Route>
         <Route path="/registration">
           <RegistrationPage />

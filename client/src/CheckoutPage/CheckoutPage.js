@@ -11,20 +11,15 @@ import { getPrice } from "../state/price/selectors";
 import { postOrder } from "../api";
 
 const schema = yup.object().shape({
-  address: yup.string(), //.required("Введите адрес доставки"),
-  // door: yup.number().notRequired(),
-  // // .typeError("Введите номер подъезда")
-  // // .positive("Введите позитивное число"),
-  // floor: yup.number().notRequired(),
-  // // .typeError("Введите этаж")
-  // // .positive("Введите позитивное число"),
-  // apartment: yup.number().notRequired(),
-  // .typeError("Введите номер квартиры")
-  // .positive("Введите позитивное число"),
-  cardNumber: yup.number(),
-  // .typeError("Введите номер карты")
-  // .positive("Введите позитивное число")
-  // .required("Введите номер карты"),
+  address: yup.string().required("Введите адрес доставки"),
+  door: yup.string(),
+  floor: yup.string(),
+  apartment: yup.string(),
+  cardNumber: yup
+    .number()
+    .typeError("Введите номер карты")
+    .positive("Введите позитивное число")
+    .required("Введите номер карты"),
   name: yup.string().required("Введите имя и фамилию на карте"),
 });
 
@@ -41,42 +36,30 @@ const normalizeCardNumber = (value) => {
 export const CheckoutPage = () => {
   const history = useHistory();
   const pizza = useSelector(getPizza);
+  const { size, dough, sauce, cheese, vegetables, meat } = pizza;
+  const ingredients = cheese.concat(vegetables).concat(meat);
   const price = useSelector(getPrice);
-
-  const ingredients = Object.values(pizza);
-  const ingredientsList = [];
-
-  ingredients.forEach(function (item) {
-    if (item instanceof Array) {
-      ingredientsList.push(...item);
-    } else {
-      ingredientsList.push(item);
-    }
-  });
-
-  const size = Number(ingredientsList[0].slice(0, -2));
-  const dough = ingredientsList[1];
-  const sauces = [ingredientsList[2]];
-
   const { register, handleSubmit, errors, setValue } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = handleSubmit(async (data) => {
     const order = {
-      ingredients: ingredientsList,
-      sauces: sauces,
       size: size,
       dough: dough,
+      sauce: sauce,
+      ingredients: ingredients,
       address: data.address,
       name: data.name,
       card_number: data.cardNumber,
+      price: price,
     };
     const result = await postOrder(order);
-    if (result.message === "Success") {
+
+    if (result !== undefined || result.length !== 0) {
       history.push("order");
     } else {
-      // Show error message here
+      history.push("checkout-error");
     }
   });
 
@@ -87,9 +70,9 @@ export const CheckoutPage = () => {
       <br />
       <form onSubmit={onSubmit}>
         <label>Адрес доставки</label>
-        <input type="text" name="adress" ref={register} />
+        <input type="text" name="address" ref={register} />
         <p>{errors.address?.message}</p>
-        {/* <label>Подъезд</label>
+        <label>Подъезд</label>
         <input type="text" name="door" ref={register} />
         <p>{errors.door?.message}</p>
         <label>Этаж</label>
@@ -97,7 +80,7 @@ export const CheckoutPage = () => {
         <p>{errors.floor?.message}</p>
         <label>Квартира</label>
         <input type="text" name="apartment" ref={register} />
-        <p>{errors.apartment?.message}</p> */}
+        <p>{errors.apartment?.message}</p>
         <label htmlFor="cardNumber">Данные для оплаты</label>
         <input
           placeholder="0000 0000 0000 0000"

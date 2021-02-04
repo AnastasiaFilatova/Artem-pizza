@@ -1,41 +1,35 @@
-import { calculatePrice } from "./utils/calculatePrice";
+import { calculatePrice } from "../utils/calculatePrice";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { setPrice } from "./state/price/actions";
-import RadioInputGroup from "./utils/RadioInputGroup";
-import { SIZE, BASE } from "./utils/pizzaData";
-import { CheckBoxGroup } from "./utils/CheckBoxGroup";
+import { setPrice } from "../state/price/actions";
+import { RadioInputGroup } from "../utils/RadioInputGroup";
+import { SIZE, DOUGH, SAUCE } from "../utils/pizzaData";
+import { CheckBoxGroup } from "../utils/CheckBoxGroup";
 
-export const PizzaForm = ({
-  onPizzaCreated,
-  sauces,
-  cheeses,
-  meats,
-  vegetables,
-}) => {
+export const PizzaForm = ({ onPizzaCreated, cheese, meat, vegetables }) => {
   const { register, handleSubmit, watch } = useForm({
     defaultValues: {
       size: "30cm",
-      base: "thin",
-      sauces: [],
-      cheeses: [],
+      dough: "thin",
+      sauce: "tomato",
+      cheese: [],
       vegetables: [],
-      meats: [],
+      meat: [],
     },
   });
 
   const values = watch();
   const selectedToppings = [
-    ...values.sauces,
-    ...values.cheeses,
+    ...values.cheese,
     ...values.vegetables,
-    ...values.meats,
+    ...values.meat,
   ];
 
-  const toppingsData = [...sauces, ...cheeses, ...vegetables, ...meats];
+  const toppingsData = [...cheese, ...meat, ...vegetables];
   const price = calculatePrice(
     values.size,
-    values.base,
+    values.dough,
+    values.sauce,
     selectedToppings,
     toppingsData
   );
@@ -64,20 +58,29 @@ export const PizzaForm = ({
           <legend>Тесто</legend>
           <RadioInputGroup
             items={[
-              { value: "thin", label: BASE["thin"].name },
-              { value: "thick", label: BASE["thick"].name },
+              { value: "thin", label: DOUGH["thin"].name },
+              { value: "thick", label: DOUGH["thick"].name },
             ]}
-            name="base"
+            name="dough"
             register={register}
           />
         </fieldset>
         <fieldset>
           <legend>Выберите соус</legend>
-          <CheckBoxGroup items={sauces} name="sauces" register={register} />
+          <RadioInputGroup
+            items={[
+              { value: "tomato", label: SAUCE["tomato"].name },
+              { value: "mayo", label: SAUCE["mayo"].name },
+              { value: "spicy", label: SAUCE["spicy"].name },
+              { value: "mushroom", label: SAUCE["mushroom"].name },
+            ]}
+            name="sauce"
+            register={register}
+          />
         </fieldset>
         <fieldset>
           <legend>Добавьте сыр</legend>
-          <CheckBoxGroup items={cheeses} name="cheeses" register={register} />
+          <CheckBoxGroup items={cheese} name="cheese" register={register} />
         </fieldset>
         <fieldset>
           <legend>Добавьте овощи</legend>
@@ -89,7 +92,7 @@ export const PizzaForm = ({
         </fieldset>
         <fieldset>
           <legend>Добавьте мясо</legend>
-          <CheckBoxGroup items={meats} name="meats" register={register} />
+          <CheckBoxGroup items={meat} name="meat" register={register} />
         </fieldset>
         <button>Заказать за {price} руб.</button>
       </form>

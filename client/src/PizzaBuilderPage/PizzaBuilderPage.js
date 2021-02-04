@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
-import { PizzaForm } from "../PizzaForm";
+import { PizzaForm } from "./PizzaForm";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getIngredientsByCategory,
@@ -13,10 +13,8 @@ export const PizzaBuilderPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
-
-  const sauces = useSelector(getIngredientsByCategory("sauces"));
-  const cheeses = useSelector(getIngredientsByCategory("cheese"));
-  const meats = useSelector(getIngredientsByCategory("meat"));
+  const cheese = useSelector(getIngredientsByCategory("cheese"));
+  const meat = useSelector(getIngredientsByCategory("meat"));
   const vegetables = useSelector(getIngredientsByCategory("vegetables"));
 
   const onPizzaChange = (pizza) => {
@@ -35,9 +33,8 @@ export const PizzaBuilderPage = () => {
     <>
       <h1>Артем пицца</h1>
       <PizzaForm
-        sauces={sauces}
-        cheeses={cheeses}
-        meats={meats}
+        cheese={cheese}
+        meat={meat}
         vegetables={vegetables}
         onPizzaCreated={onPizzaChange}
       />

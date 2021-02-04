@@ -1,41 +1,37 @@
-import { SIZE, BASE } from "../utils/pizzaData";
+import { SIZE, DOUGH, SAUCE } from "../utils/pizzaData";
 import { useSelector } from "react-redux";
 import { getIngredientsByCategory } from "../state/ingredients/selectors";
 
 export const PizzaPreview = ({ pizza }) => {
-  const saucesInfo = useSelector(getIngredientsByCategory("sauces"));
-  const cheesesInfo = useSelector(getIngredientsByCategory("cheese"));
-  const meatsInfo = useSelector(getIngredientsByCategory("meat"));
+  const cheeseInfo = useSelector(getIngredientsByCategory("cheese"));
+  const meatInfo = useSelector(getIngredientsByCategory("meat"));
   const vegetablesInfo = useSelector(getIngredientsByCategory("vegetables"));
 
   const size = SIZE[pizza.size].name;
-  const base = BASE[pizza.base].name;
-  const sauces = pizza.sauces;
-  const cheeses = pizza.cheeses;
+  const dough = DOUGH[pizza.dough].name;
+  const sauce = SAUCE[pizza.sauce].name;
+  const cheese = pizza.cheese;
   const vegetables = pizza.vegetables;
-  const meats = pizza.meats;
+  const meat = pizza.meat;
 
-  const selectedSauces = saucesInfo.filter(({ slug }) => sauces.includes(slug));
-  const selectedCheeses = cheesesInfo.filter(({ slug }) =>
-    cheeses.includes(slug)
-  );
+  const selectedCheese = cheeseInfo.filter(({ slug }) => cheese.includes(slug));
   const selectedVegetables = vegetablesInfo.filter(({ slug }) =>
     vegetables.includes(slug)
   );
-  const selectedMeats = meatsInfo.filter(({ slug }) => meats.includes(slug));
+  const selectedMeat = meatInfo.filter(({ slug }) => meat.includes(slug));
 
   return (
     <>
       <p>
         {size}
         &nbsp;
-        {base}
+        {dough}
       </p>
-      {selectedSauces && selectedSauces.map((sauce) => <p>{sauce.name}</p>)}
-      {selectedCheeses && selectedCheeses.map((cheese) => <p>{cheese.name}</p>)}
+      <p>{sauce}</p>
+      {selectedCheese && selectedCheese.map((cheese) => <p>{cheese.name}</p>)}
       {selectedVegetables &&
         selectedVegetables.map((vegetable) => <p>{vegetable.name}</p>)}
-      {selectedMeats && selectedMeats.map((meat) => <p>{meat.name}</p>)}
+      {selectedMeat && selectedMeat.map((meat) => <p>{meat.name}</p>)}
     </>
   );
 };
