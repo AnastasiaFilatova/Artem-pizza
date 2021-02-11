@@ -6,7 +6,7 @@ import { RadioInputGroup } from "../utils/RadioInputGroup";
 import { SIZE, DOUGH, SAUCE } from "../utils/pizzaData";
 import { CheckBoxGroup } from "../utils/CheckBoxGroup";
 import styled from "styled-components";
-import { GRAY600 } from "../colors";
+import { GRAY600, GREEN } from "../colors";
 
 const RadioSetHorizontalContainer = styled.div`
   display: flex;
@@ -31,6 +31,25 @@ const ScrollableContainer = styled.div`
   overflow-x: overflow;
   padding-bottom: 12px;
 `;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+  margin: 16px 0px;
+  font-family: Rounded Mplus 1c;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 24px;
+  color: white;
+  background-color: ${GREEN};
+  border-radius: 16px;
+`;
+
+const ButtonFontStyle = styled.div``;
 
 export const PizzaForm = ({ onPizzaCreated, cheese, meat, vegetables }) => {
   const { register, handleSubmit, watch } = useForm({
@@ -125,7 +144,7 @@ export const PizzaForm = ({ onPizzaCreated, cheese, meat, vegetables }) => {
         <RadioSetHorizontalItemLabel>Добавьте мясо</RadioSetHorizontalItemLabel>
         <CheckBoxGroup items={meat} name="meat" register={register} />
 
-        <button>Заказать за {price} руб.</button>
+        <ButtonContainer>Заказать за {price} руб.</ButtonContainer>
       </form>
     </>
   );
