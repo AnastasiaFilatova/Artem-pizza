@@ -8,10 +8,16 @@ import { RegistrationPage } from "./RegistrationPage";
 import { NotFoundPage } from "./NotFoundPage";
 import { OrderPage } from "./OrderPage/OrderPage";
 import { OrdersListPage } from "./OrdersListPage/OrdersListPage";
+import styled from "styled-components";
+
+const NavigationContainer = styled.div`
+  max-width: 350px;
+  margin: 0 auto;
+`;
 
 function App() {
   return (
-    <>
+    <NavigationContainer>
       <nav>
         <ul>
           <li>
@@ -60,7 +66,7 @@ function App() {
           <NotFoundPage />
         </Route>
       </Switch>
-    </>
+    </NavigationContainer>
   );
 }
 

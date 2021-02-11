@@ -11,6 +11,7 @@ import { GRAY600 } from "../colors";
 const RadioSetHorizontalContainer = styled.div`
   display: flex;
   margin: 24px 0;
+  justify-content: space-between;
 `;
 
 const RadioSetHorizontalItem = styled.div`
@@ -24,6 +25,11 @@ const RadioSetHorizontalItemLabel = styled.div`
   color: ${GRAY600};
   margin-bottom: 4px;
   margin-left: 2px;
+`;
+
+const ScrollableContainer = styled.div`
+  overflow-x: overflow;
+  padding-bottom: 12px;
 `;
 
 export const PizzaForm = ({ onPizzaCreated, cheese, meat, vegetables }) => {
@@ -60,8 +66,6 @@ export const PizzaForm = ({ onPizzaCreated, cheese, meat, vegetables }) => {
     dispatch(setPrice(price));
   };
 
-  console.log("watch ", values["size"]);
-
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -74,7 +78,7 @@ export const PizzaForm = ({ onPizzaCreated, cheese, meat, vegetables }) => {
                 { value: "35cm", label: SIZE["35cm"].name },
               ]}
               name="size"
-              register={register}
+              selectedValue={values["size"]}
             />
           </RadioSetHorizontalItem>
           <RadioSetHorizontalItem>
@@ -85,28 +89,27 @@ export const PizzaForm = ({ onPizzaCreated, cheese, meat, vegetables }) => {
                 { value: "thick", label: DOUGH["thick"].name },
               ]}
               name="dough"
-              register={register}
+              selectedValue={values["dough"]}
             />
           </RadioSetHorizontalItem>
         </RadioSetHorizontalContainer>
-        <RadioSetHorizontalContainer>
-          <RadioSetHorizontalItem>
-            <RadioSetHorizontalItemLabel>
-              Выберите соус
-            </RadioSetHorizontalItemLabel>
-            <RadioInputGroup
-              items={[
-                { value: "tomato", label: SAUCE["tomato"].name },
-                { value: "mayo", label: SAUCE["mayo"].name },
-                { value: "spicy", label: SAUCE["spicy"].name },
-                { value: "mushroom", label: SAUCE["mushroom"].name },
-              ]}
-              name="sauce"
-              register={register}
-            />
-          </RadioSetHorizontalItem>
-        </RadioSetHorizontalContainer>
-
+        <ScrollableContainer>
+          <RadioSetHorizontalItemLabel>
+            Выберите соус
+          </RadioSetHorizontalItemLabel>
+          <RadioInputGroup
+            items={[
+              { value: "tomato", label: SAUCE["tomato"].name },
+              { value: "mayo", label: SAUCE["mayo"].name },
+              { value: "spicy", label: SAUCE["spicy"].name },
+              { value: "mushroom", label: SAUCE["mushroom"].name },
+              { value: "white", label: SAUCE["white"].name },
+              { value: "special", label: SAUCE["special"].name },
+            ]}
+            name="sauce"
+            selectedValue={values["sauce"]}
+          />
+        </ScrollableContainer>
         <RadioSetHorizontalItemLabel>Добавьте сыр</RadioSetHorizontalItemLabel>
         <CheckBoxGroup items={cheese} name="cheese" register={register} />
 

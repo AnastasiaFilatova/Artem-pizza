@@ -4,8 +4,8 @@ export const SIZE = {
 };
 
 export const DOUGH = {
-  thin: { name: "на тонком тесте", price: 0 },
-  thick: { name: "на пышном тесте", price: 0 },
+  thin: { name: "Тонкое", price: 0 },
+  thick: { name: "Пышное", price: 0 },
 };
 
 export const SAUCE = {
@@ -13,6 +13,8 @@ export const SAUCE = {
   mayo: { name: "Майонез", price: 0 },
   spicy: { name: "Острый соус", price: 0 },
   mushroom: { name: "Грибной соус", price: 0 },
+  white: { name: "Белый соус", price: 0 },
+  special: { name: "Особый соус", price: 0 },
 };
 
 export const CHEESE = {

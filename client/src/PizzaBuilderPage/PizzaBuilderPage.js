@@ -8,6 +8,13 @@ import {
 } from "../state/ingredients/selectors";
 import { fetchIngredients } from "../state/ingredients/thunk";
 import { setPizza } from "../state/pizza/actions";
+import styled from "styled-components";
+
+const PageContainer = styled.div`
+  max-width: 375px;
+  margin: 0 20px;
+  overflow: auto;
+`;
 
 export const PizzaBuilderPage = () => {
   const history = useHistory();
@@ -30,7 +37,7 @@ export const PizzaBuilderPage = () => {
     return <>Loading...</>;
   }
   return (
-    <>
+    <PageContainer>
       <h1>Артем пицца</h1>
       <PizzaForm
         cheese={cheese}
@@ -38,6 +45,6 @@ export const PizzaBuilderPage = () => {
         vegetables={vegetables}
         onPizzaCreated={onPizzaChange}
       />
-    </>
+    </PageContainer>
   );
 };
