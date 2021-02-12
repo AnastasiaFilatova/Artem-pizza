@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { BLACK } from "../colors";
+import { BLACK, GREEN, GRAY200 } from "../colors";
 
 const CheckBoxContainer = styled.div`
   display: flex;
@@ -53,9 +53,12 @@ const PriceAndCheckBoxContainer = styled.div`
 const CheckBoxInputContainer = styled.div`
   display: inline-block;
   background: white;
-  border: 2px solid #e1e1ed;
+  border: 2px solid ${GRAY200};
   box-sizing: border-box;
   border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  color: ${({ isChecked }) => (isChecked ? GREEN : GRAY200)};
 `;
 
 export const CheckBoxGroup = ({ items, register, name }) => {
