@@ -25,15 +25,21 @@ const SwitcherItem = styled.div`
   cursor: ${({ isSelected }) => (isSelected ? "default" : "pointer")};
 `;
 
-export const RadioInputGroup = ({ items, selectedValue, name }) => {
+export const RadioInputGroup = ({ items, id, checked, onChange }) => {
+  const handleChange = (e) => {
+    onChange(e.target.getAttribute("value"));
+  };
+
   return (
     <SwitcherContainer>
       {items.map((item, i) => {
         return (
           <SwitcherItem
             key={i}
-            isSelected={item.value === selectedValue ? true : false}
-            name={name}
+            isSelected={item.value === checked ? true : false}
+            name={id}
+            onClick={handleChange}
+            value={item.value}
           >
             {item.label}
           </SwitcherItem>

@@ -1,5 +1,5 @@
 import { calculatePrice } from "../utils/calculatePrice";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setPrice } from "../state/price/actions";
 import { RadioInputGroup } from "../utils/RadioInputGroup";
@@ -49,35 +49,28 @@ const ButtonContainer = styled.div`
   border-radius: 16px;
 `;
 
-const ButtonFontStyle = styled.div``;
-
 export const PizzaForm = ({ onPizzaCreated, cheese, meat, vegetables }) => {
-  const { register, handleSubmit, watch } = useForm({
-    defaultValues: {
-      size: "30cm",
-      dough: "thin",
-      sauce: "tomato",
-      cheese: [],
-      vegetables: [],
-      meat: [],
-    },
+  const defaultValues = {
+    size: "30cm",
+    dough: "thin",
+    sauce: "tomato",
+    cheese: [],
+    vegetables: [],
+    meat: [],
+  };
+
+  const { register, handleSubmit, watch, control } = useForm({
+    defaultValues: defaultValues,
   });
 
   const values = watch();
-  const selectedToppings = [
-    ...values.cheese,
-    ...values.vegetables,
-    ...values.meat,
-  ];
+
+  const selectedToppings = Object.values(values);
+
+  console.log("selectedToppings", selectedToppings);
 
   const toppingsData = [...cheese, ...meat, ...vegetables];
-  const price = calculatePrice(
-    values.size,
-    values.dough,
-    values.sauce,
-    selectedToppings,
-    toppingsData
-  );
+  const price = calculatePrice(selectedToppings, toppingsData);
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
@@ -91,24 +84,40 @@ export const PizzaForm = ({ onPizzaCreated, cheese, meat, vegetables }) => {
         <RadioSetHorizontalContainer>
           <RadioSetHorizontalItem>
             <RadioSetHorizontalItemLabel>Размер</RadioSetHorizontalItemLabel>
-            <RadioInputGroup
-              items={[
-                { value: "30cm", label: SIZE["30cm"].name },
-                { value: "35cm", label: SIZE["35cm"].name },
-              ]}
+            <Controller
+              control={control}
               name="size"
-              selectedValue={values["size"]}
+              defaultValue={defaultValues["size"]}
+              render={({ onChange, value }) => (
+                <RadioInputGroup
+                  items={[
+                    { value: "30cm", label: SIZE["30cm"].name },
+                    { value: "35cm", label: SIZE["35cm"].name },
+                  ]}
+                  id="size"
+                  checked={value}
+                  onChange={onChange}
+                />
+              )}
             />
           </RadioSetHorizontalItem>
           <RadioSetHorizontalItem>
             <RadioSetHorizontalItemLabel>Тесто</RadioSetHorizontalItemLabel>
-            <RadioInputGroup
-              items={[
-                { value: "thin", label: DOUGH["thin"].name },
-                { value: "thick", label: DOUGH["thick"].name },
-              ]}
+            <Controller
+              control={control}
               name="dough"
-              selectedValue={values["dough"]}
+              defaultValue={defaultValues["dough"]}
+              render={({ onChange, value }) => (
+                <RadioInputGroup
+                  items={[
+                    { value: "thin", label: DOUGH["thin"].name },
+                    { value: "thick", label: DOUGH["thick"].name },
+                  ]}
+                  id="dough"
+                  checked={value}
+                  onChange={onChange}
+                />
+              )}
             />
           </RadioSetHorizontalItem>
         </RadioSetHorizontalContainer>
@@ -116,22 +125,29 @@ export const PizzaForm = ({ onPizzaCreated, cheese, meat, vegetables }) => {
           <RadioSetHorizontalItemLabel>
             Выберите соус
           </RadioSetHorizontalItemLabel>
-          <RadioInputGroup
-            items={[
-              { value: "tomato", label: SAUCE["tomato"].name },
-              { value: "mayo", label: SAUCE["mayo"].name },
-              { value: "spicy", label: SAUCE["spicy"].name },
-              { value: "mushroom", label: SAUCE["mushroom"].name },
-              { value: "white", label: SAUCE["white"].name },
-              { value: "special", label: SAUCE["special"].name },
-            ]}
+          <Controller
+            control={control}
             name="sauce"
-            selectedValue={values["sauce"]}
+            defaultValue={defaultValues["sauce"]}
+            render={({ onChange, value }) => (
+              <RadioInputGroup
+                items={[
+                  { value: "tomato", label: SAUCE["tomato"].name },
+                  { value: "mayo", label: SAUCE["mayo"].name },
+                  { value: "spicy", label: SAUCE["spicy"].name },
+                  { value: "mushroom", label: SAUCE["mushroom"].name },
+                  { value: "white", label: SAUCE["white"].name },
+                  { value: "special", label: SAUCE["special"].name },
+                ]}
+                id="sauce"
+                checked={value}
+                onChange={onChange}
+              />
+            )}
           />
         </ScrollableContainer>
         <RadioSetHorizontalItemLabel>Добавьте сыр</RadioSetHorizontalItemLabel>
         <CheckBoxGroup items={cheese} name="cheese" register={register} />
-
         <RadioSetHorizontalItemLabel>
           Добавьте овощи
         </RadioSetHorizontalItemLabel>
