@@ -79,14 +79,7 @@ export const CheckBoxGroup = ({ items, register, name }) => {
                 ref={register}
                 value={item.slug}
                 name={name}
-              >
-                <input
-                  ref={register}
-                  type="checkbox"
-                  value={item.slug}
-                  name={name}
-                />
-              </CheckBoxInputContainer>
+              ></CheckBoxInputContainer>
             </PriceAndCheckBoxContainer>
           </CheckBoxItemContainer>
         );
