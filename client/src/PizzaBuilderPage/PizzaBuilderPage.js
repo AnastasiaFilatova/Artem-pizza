@@ -38,7 +38,6 @@ export const PizzaBuilderPage = () => {
   }
   return (
     <PageContainer>
-      <h1>Артем пицца</h1>
       <PizzaForm
         cheese={cheese}
         meat={meat}
