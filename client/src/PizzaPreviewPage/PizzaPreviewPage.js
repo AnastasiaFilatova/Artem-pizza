@@ -1,9 +1,10 @@
-import { Redirect, Link } from "react-router-dom";
-import { usePizza } from "../PizzaContext";
-import { PizzaPreview } from "../PizzaPreview";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { PizzaPreview } from "./PizzaPreview";
+import { getPizza } from "../state/pizza/selectors";
 
-export const PizzaPreviewPage = ({ _usePizzaHook = usePizza }) => {
-  const { pizza } = _usePizzaHook();
+export const PizzaPreviewPage = () => {
+  const pizza = useSelector(getPizza);
 
   if (!pizza) {
     return <Redirect to="/" />;
@@ -14,7 +15,7 @@ export const PizzaPreviewPage = ({ _usePizzaHook = usePizza }) => {
       <h1>Ваша пицца</h1>
       <PizzaPreview pizza={pizza} />
       <hr />
-      <Redirect to={{ pathname: "/checkout", state: pizza }} />
+      <Redirect to="/checkout" />
     </>
   );
 };

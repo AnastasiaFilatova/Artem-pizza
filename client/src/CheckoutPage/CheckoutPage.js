@@ -1,30 +1,26 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { PizzaPreview } from "../PizzaPreview";
-import { calculatePrice } from "../utils/calculatePrice";
+import { PizzaPreviewPage } from "../PizzaPreviewPage/PizzaPreviewPage";
+import { useSelector } from "react-redux";
+import { getPizza } from "../state/pizza/selectors";
+import { getPrice } from "../state/price/selectors";
+import { postOrder } from "../api";
 
 const schema = yup.object().shape({
-  adress: yup.string().required("Введите адрес доставки"),
-  door: yup
-    .number()
-    .typeError("Введите номер подъезда")
-    .positive("Введите позитивное число"),
-  floor: yup
-    .number()
-    .typeError("Введите этаж")
-    .positive("Введите позитивное число"),
-  apartment: yup
-    .number()
-    .typeError("Введите номер квартиры")
-    .positive("Введите позитивное число"),
+  address: yup.string().required("Введите адрес доставки"),
+  door: yup.string(),
+  floor: yup.string(),
+  apartment: yup.string(),
   cardNumber: yup
     .number()
     .typeError("Введите номер карты")
     .positive("Введите позитивное число")
     .required("Введите номер карты"),
+  name: yup.string().required("Введите имя и фамилию на карте"),
 });
 
 const normalizeCardNumber = (value) => {
@@ -38,22 +34,44 @@ const normalizeCardNumber = (value) => {
 };
 
 export const CheckoutPage = () => {
-  const location = useLocation();
-
-  const { register, handleSubmit, errors } = useForm({
+  const history = useHistory();
+  const pizza = useSelector(getPizza);
+  const { size, dough, sauce, cheese, vegetables, meat } = pizza;
+  const ingredients = cheese.concat(vegetables).concat(meat);
+  const price = useSelector(getPrice);
+  const { register, handleSubmit, errors, setValue } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => {};
+
+  const onSubmit = handleSubmit(async (data) => {
+    const order = {
+      size: size,
+      dough: dough,
+      sauce: sauce,
+      ingredients: ingredients,
+      address: data.address,
+      name: data.name,
+      card_number: data.cardNumber,
+      price: price,
+    };
+    const result = await postOrder(order);
+
+    if (result !== undefined || result.length !== 0) {
+      history.push("order");
+    } else {
+      history.push("checkout-error");
+    }
+  });
 
   return (
     <>
       <h1>Оформить заказ</h1>
-      <PizzaPreview pizza={location.state} />
+      <PizzaPreviewPage pizza={pizza} />
       <br />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit}>
         <label>Адрес доставки</label>
-        <input type="text" name="adress" ref={register} />
-        <p>{errors.adress?.message}</p>
+        <input type="text" name="address" ref={register} />
+        <p>{errors.address?.message}</p>
         <label>Подъезд</label>
         <input type="text" name="door" ref={register} />
         <p>{errors.door?.message}</p>
@@ -73,12 +91,19 @@ export const CheckoutPage = () => {
           id="cardNumber"
           onChange={(event) => {
             const { value } = event.target;
-            event.target.value = normalizeCardNumber(value);
+            setValue("cardNumber", normalizeCardNumber(value));
           }}
           ref={register}
         />
         <p>{errors.cardNumber?.message}</p>
-        <button>Оплатить {calculatePrice(location.state)} руб.</button>
+        <input
+          type="text"
+          name="name"
+          placeholder="Имя на карте"
+          ref={register}
+        />
+        <p>{errors.name?.message}</p>
+        <button>Оплатить {price} руб.</button>
       </form>
 
       <hr />

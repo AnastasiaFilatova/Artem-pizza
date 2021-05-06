@@ -2,10 +2,12 @@ import { Route, Link, Switch } from "react-router-dom";
 import { PizzaBuilderPage } from "./PizzaBuilderPage";
 import { PizzaPreviewPage } from "./PizzaPreviewPage";
 import { CheckoutPage } from "./CheckoutPage";
+import { CheckoutErrorPage } from "./CheckoutErrorPage";
 import { LoginPage } from "./LoginPage";
 import { RegistrationPage } from "./RegistrationPage";
-import { HistoryPage } from "./HistoryPage";
 import { NotFoundPage } from "./NotFoundPage";
+import { OrderPage } from "./OrderPage/OrderPage";
+import { OrdersListPage } from "./OrdersListPage/OrdersListPage";
 
 function App() {
   return (
@@ -25,7 +27,7 @@ function App() {
             <Link to="/login">Логин</Link>
           </li>
           <li>
-            <Link to="/history">Список заказов</Link>
+            <Link to="/orders">Список заказов</Link>
           </li>
         </ul>
       </nav>
@@ -39,14 +41,20 @@ function App() {
         <Route path="/checkout">
           <CheckoutPage />
         </Route>
+        <Route path="/checkout-error">
+          <CheckoutErrorPage />
+        </Route>
         <Route path="/registration">
           <RegistrationPage />
         </Route>
         <Route path="/login">
           <LoginPage />
         </Route>
-        <Route path="/history">
-          <HistoryPage />
+        <Route path="/order">
+          <OrderPage />
+        </Route>
+        <Route path="/orders">
+          <OrdersListPage />
         </Route>
         <Route>
           <NotFoundPage />
